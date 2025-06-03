@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jana Online Service | টাকা ক্যালকুলেটর</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      background: #f2f2f2;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      max-width: 100px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+    }
+
+    .note-input {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .note-input label {
+      flex: 1;
+    }
+
+    .note-input input {
+      width: 100px;
+      padding: 6px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .calc-btn {
+      background-color: #28a745;
+      color: white;
+    }
+
+    .print-btn {
+      background-color: #17a2b8;
+      color: white;
+    }
+
+    #result {
+      margin-top: 20px;
+    }
+
+    #result table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    #result th, #result td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: center;
+    }
+
+    #result th {
+      background-color: #f8f8f8;
+    }
+
+    #onlineStatus {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer hr {
+      margin: 30px auto 10px;
+      width: 80%;
+    }
+
+    @media print {
+      .note-input input,
+      button,
+      #onlineStatus {
+        display: none !important;
+      }
+
+      .container {
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+
+      #result table {
+        font-size: 16px;
+      }
+
+      footer {
+        color: black;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg" alt="Logo">
+    </div>
+
+    <h2>Jana Online Service<br>টাকা ক্যালকুলেটর</h2>
+
+    <!-- Input fields -->
+    <div class="note-input"><label>₹2000:</label><input type="number" id="n2000" value="0"></div>
+    <div class="note-input"><label>₹500:</label><input type="number" id="n500" value="0"></div>
+    <div class="note-input"><label>₹200:</label><input type="number" id="n200" value="0"></div>
+    <div class="note-input"><label>₹100:</label><input type="number" id="n100" value="0"></div>
+    <div class="note-input"><label>₹50:</label><input type="number" id="n50" value="0"></div>
+    <div class="note-input"><label>₹20:</label><input type="number" id="n20" value="0"></div>
+    <div class="note-input"><label>₹10:</label><input type="number" id="n10" value="0"></div>
+    <div class="note-input"><label>₹5:</label><input type="number" id="n5" value="0"></div>
+    <div class="note-input"><label>₹2:</label><input type="number" id="n2" value="0"></div>
+    <div class="note-input"><label>₹1:</label><input type="number" id="n1" value="0"></div>
+
+    <!-- Buttons -->
+    <button class="calc-btn" onclick="calculateTotal()">মোট হিসাব দেখাও</button>
+    <button class="print-btn" onclick="window.print()">প্রিন্ট করুন</button>
+
+    <!-- Result -->
+    <div id="result"></div>
+
+    <!-- Live Internet Status -->
+    <div id="onlineStatus"></div>
+
+    <!-- Footer -->
+    <footer>
+      <hr>
+      <p><strong>Jana Online Service</strong></p>
+      <p>নাম: Mr. Suman Jana | মোবাইল: 9907992247</p>
+      <p>ইমেইল: janaonlineservice4@gmail.com</p>
+      <p>ঠিকানা: Kakdwip, Lot No, West Bengal - 743347</p>
+      <p>© 2025 Jana Online Service</p>
+    </footer>
+  </div>
+
+  <script>
+    function calculateTotal() {
+      const notes = {
+        "₹2000": { id: "n2000", value: 2000 },
+        "₹500": { id: "n500", value: 500 },
+        "₹200": { id: "n200", value: 200 },
+        "₹100": { id: "n100", value: 100 },
+        "₹50": { id: "n50", value: 50 },
+        "₹20": { id: "n20", value: 20 },
+        "₹10": { id: "n10", value: 10 },
+        "₹5": { id: "n5", value: 5 },
+        "₹2": { id: "n2", value: 2 },
+        "₹1": { id: "n1", value: 1 }
+      };
+
+      let resultHTML = `<table>
+        <tr><th>নোট</th><th>সংখ্যা</th><th>মোট</th></tr>`;
+      let grandTotal = 0;
+
+      for (let label in notes) {
+        const { id, value } = notes[label];
+        const count = parseInt(document.getElementById(id).value) || 0;
+        const total = count * value;
+        if (count > 0) {
+          resultHTML += `<tr><td>${label}</td><td>${count}</td><td>₹${total}</td></tr>`;
+        }
+        grandTotal += total;
+      }
+
+      resultHTML += `<tr><th colspan="2">মোট</th><th>₹${grandTotal}</th></tr></table>`;
+      document.getElementById("result").innerHTML = resultHTML;
+    }
+
+    function updateOnlineStatus() {
+      const status = document.getElementById("onlineStatus");
+      if (navigator.onLine) {
+        status.style.border = "2px solid green";
+        status.style.backgroundColor = "#e6ffe6";
+        status.style.color = "green";
+        status.innerHTML = "🟢 Jana Online Service is Active Now";
+      } else {
+        status.style.border = "2px solid red";
+        status.style.backgroundColor = "#ffe6e6";
+        status.style.color = "red";
+        status.innerHTML = "🔴 No Internet Connection";
+      }
+    }
+
+    updateOnlineStatus();
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
+  </script>
+
+</body>
+</html>
